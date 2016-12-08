@@ -5,14 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name='author' content='Ivan Georgiev'>
-    <meta name='description' content=''>
-    <meta name='keywords' content=''>
-    <title>Change the Title</title>
+    <title>Pomodoro Clock</title>
     <!-- Main.CSS -->
     <link rel='stylesheet' href='assets/css/main.min.css' type='text/css'>
   </head>
   <body> 
-
+    <h1 class='h1--title'>Pomodoro Clock</h1>
+    <div class='div--settings'>
+      <div class='div--break'>
+        <h2 class='h2--settings'>Break Time</h2>
+        <p class='p--settings'>
+          <button class='b--operation b--min'>_</button>
+          <span class='span--break'>5</span>
+          <button class='b--operation b--plus'>+</button>
+        </p>
+      </div>
+      <div class='div--session'>
+        <h2 class='h2--settings'>Session Time</h2>
+        <p class='p--settings'>
+          <button class='b--operation s--min'>_</button>
+          <span class='span--session'>20</span>
+          <button class='b--operation s--plus'>+</button>
+        </p>
+      </div>
+    </div>
+    <div class='div--timer'>
+      <h2 class='h2--timer'>Timer</h2>
+      <p class='p--timer'>20:00</p>
+    </div>
     <script src='assets/js/app.min.js'></script>
   </body>
 </html>
