@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     cssnano = require('gulp-cssnano'),
     concat = require('gulp-concat'),
     pump = require('pump');
-    babel = require('gulp-babel');
 
 
 gulp.task('css', function (cb) {
@@ -28,7 +27,6 @@ gulp.task('jsConcat', function(cb){
   pump([
     gulp.src('src/assets/js/app.js'),
     concat('app.min.js'),
-    babel(),
     gulp.dest('app/assets/js'),
     browserSync.reload({stream:true})
     ],
