@@ -9,43 +9,19 @@ const bTimer = document.querySelector('.b--timer');
 const h2Type = document.querySelector('.h2--type');
 
 
+const minOrPlus = (op, n)=>{
+  if(op === 'min' && n.innerHTML > 1)
+    n.innerHTML -= 1; 
+  else if(op == 'plus' && n.innerHTML < 60)
+    n.innerHTML = +n.innerHTML + 1; 
 
-
-//FUNCTIONS FOR SETTINGS
-//
-const minOrPlus = (time, op)=>{
-  if(op === 'min'){
-    if(time.innerHTML > 1)
-      time.innerHTML -= 1; 
-  }
-  else{
-    if(time.innerHTML < 60)
-      time.innerHTML = +time.innerHTML + 1; 
-  }
+  pTimer.innerHTML = sSes.innerHTML + ':00';
 };
-
-const typeSettings = (op, n, pTimer)=>{
-  if(n === 0){
-    const time = document.querySelector('.span--break');
-    minOrPlus(time, op);
-  }
-  else{
-    const time = document.querySelector('.span--session');
-    minOrPlus(time, op);
-    pTimer.innerHTML = 
-      time.innerHTML + ':00';
-  }
-};
-//
-//--end of functions for settings
-
-
-
 
 
 //FUNCTIONS FOR TIMER
 //
-const setSecs = (t, sSes, sBreak, mins, secs, h2Type)=>{
+const setSecs = (t, mins, secs)=>{
   if(secs > 10)
     return mins + ':' + (secs-1).toString();
 
@@ -53,10 +29,10 @@ const setSecs = (t, sSes, sBreak, mins, secs, h2Type)=>{
     return mins + ':0' + (secs-1);
 
   else
-    return setMins(t, sSes, sBreak, mins, h2Type);
+    return setMins(t, mins);
 };
 
-const setMins = (t, sSes, sBreak, mins, h2Type)=>{
+const setMins = (t, mins)=>{
   if(mins > 10)
     return (mins-1).toString() + ':59';
   
@@ -64,10 +40,10 @@ const setMins = (t, sSes, sBreak, mins, h2Type)=>{
     return (mins-1).toString() + ':59';
   
   else
-    return end(t, sSes, sBreak, h2Type);
+    return end(t);
 };
 
-const end = (t, sSes, sBreak, h2Type)=>{
+const end = (t)=>{
   new Audio('assets/beep.mp3').play();
 
   if(t === 'break'){
@@ -79,31 +55,33 @@ const end = (t, sSes, sBreak, h2Type)=>{
     h2Type.innerHTML = 'In Session';
     return (sSes.innerHTML-1) + ':59';
   }
+
 };
 
-const run = (bTimer, h2Type)=>{
+const run = ()=>{
   bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = true;
 
   const intervalID = setInterval(()=>{
     if(h2Type.innerHTML === 'In Session'){
       pTimer.innerHTML = 
-        setSecs('break', sSes, sBreak,
+        setSecs('break', 
           pTimer.innerHTML.split(':')[0],
-          pTimer.innerHTML.split(':')[1], h2Type);
+          pTimer.innerHTML.split(':')[1]);
     }
     else{
       pTimer.innerHTML = 
-        setSecs('session', sSes, sBreak,
+        setSecs('session',
           pTimer.innerHTML.split(':')[0],
-          pTimer.innerHTML.split(':')[1], h2Type);
+          pTimer.innerHTML.split(':')[1]);
     }
 
     bTimer.onclick = ()=>{
       clearInterval(intervalID);
       reset();
+      h2Type.innerHTML = 'In Session';
 
-      //have to set it again cuz it won't go to the bottom onclick one :D
-      bTimer.onclick = ()=>{run(bTimer, h2Type);};
+//have to set it again cuz it won't go to the bottom bTimer.onclick function :D
+      bTimer.onclick = ()=>{run();};
     };
   }, 1000);
 };
@@ -119,10 +97,10 @@ const reset = ()=>{
 
 
 //Settings
-bMin.onclick = ()=>{typeSettings('min', 0, pTimer);};
-sMin.onclick = ()=>{typeSettings('min', 1, pTimer);};
-bPlus.onclick = ()=>{typeSettings('plus', 0, pTimer);};
-sPlus.onclick = ()=>{typeSettings('plus', 1, pTimer);};
+bMin.onclick = ()=>{minOrPlus('min', sBreak);};
+sMin.onclick = ()=>{minOrPlus('min', sSes);};
+bPlus.onclick = ()=>{minOrPlus('plus', sBreak);};
+sPlus.onclick = ()=>{minOrPlus('plus', sSes);};
 
 //Timer
-bTimer.onclick = ()=>{run(bTimer, h2Type);};
+bTimer.onclick = ()=>{run();};

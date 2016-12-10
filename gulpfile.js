@@ -78,7 +78,7 @@ gulp.task('bs-reload', function () {
 
 gulp.task('default', ['css', 'mp3', 'jsConcat', 'html', 'img', 'browser-sync'], function () {
     gulp.watch("src/assets/css/*.scss", ['css']);
-    gulp.wathc("src/assets/beep.mp3", ['mp3']);
+    gulp.watch("src/assets/beep.mp3", ['mp3']);
     gulp.watch("src/assets/js/app.js", ['jsConcat']);
     gulp.watch("src/*.html", ['html']);
     gulp.watch("src/assets/img/**/*", ['img']);
