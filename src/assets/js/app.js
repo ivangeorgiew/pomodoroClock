@@ -7,6 +7,8 @@ const sBreak = document.querySelector('.span--break');
 const pTimer = document.querySelector('.p--timer');
 const bTimer = document.querySelector('.b--timer');
 const h2Type = document.querySelector('.h2--type');
+const beep = new Audio('assets/beep.mp3');
+beep.volume = 1;
 
 
 const minOrPlus = (op, n)=>{
@@ -44,7 +46,7 @@ const setMins = (t, mins)=>{
 };
 
 const end = (t)=>{
-  new Audio('assets/beep.mp3').play();
+  beep.play();
 
   if(t === 'break'){
     h2Type.innerHTML = 'In Break';
