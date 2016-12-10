@@ -4,7 +4,7 @@ An app suitable for studying where work and break are time scheduled.
 The option to pause the clock is not added on purpose, because it would destroy
 the whole idea of productivity.
 
-View the app live at https://ivangeorgiew.github.io/wikiViewer/
+View the app live at https://ivangeorgiew.github.io/pomodoroClock/
 
 ### Feedback
 
