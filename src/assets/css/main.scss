@@ -33,6 +33,10 @@ select, input, button{
   display: inline-block;
   margin: 50px 20px 0px 20px;
   font-size: 15px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .p--settings{
@@ -52,7 +56,7 @@ select, input, button{
   top: -12px;
 }
 
-.div--timer{
+.b--timer{
   text-align: center;
   margin: 50px;
   margin-left: 35px;
@@ -71,3 +75,21 @@ select, input, button{
   font-size: 40px;
 }
 
+.h2--type{
+  color: $red;
+  font-size: 30px;
+  margin-top: -20px;
+}
+
+@media (max-width: 360px){
+  .h1--title{
+    font-size: 35px;
+    margin-bottom: -5px;
+  }
+  .h2--settings{
+    font-size: 20px;
+  }
+  .h2--type{
+    margin-bottom: 50px;
+  }
+}
