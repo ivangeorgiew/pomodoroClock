@@ -34,9 +34,6 @@ select, input, button{
   margin: 50px 20px 0px 20px;
   font-size: 15px;
   user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 .p--settings{
@@ -68,6 +65,8 @@ select, input, button{
   height: 250px;
   border-radius: 50%;
   color: $red;
+  background: none;
+  transition: 1s;
 }
 
 .p--timer{

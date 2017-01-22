@@ -22,79 +22,70 @@ const minOrPlus = (op, n)=>{
 
 
 //FUNCTIONS FOR TIMER
-//
-const setSecs = (t, mins, secs)=>{
+const setSecs = (mins, secs)=>{
   if(secs > 10)
-    return mins + ':' + (secs-1).toString();
+    return mins + ':' + (secs-1);
 
   else if(secs > 0)
     return mins + ':0' + (secs-1);
 
   else
-    return setMins(t, mins);
+    return setMins(mins);
 };
 
-const setMins = (t, mins)=>{
+const setMins = (mins)=>{
   if(mins > 10)
-    return (mins-1).toString() + ':59';
+    return (mins-1) + ':59';
   
   else if(mins > 0)
-    return (mins-1).toString() + ':59';
+    return (mins-1) + ':59';
   
   else
-    return end(t);
+    return '0:00';
 };
 
-const end = (t)=>{
-  beep.play();
-
-  if(t === 'break'){
-    h2Type.innerHTML = 'In Break';
-    return (sBreak.innerHTML-1).toString() + ':59';
-  }
-
-  else{
-    h2Type.innerHTML = 'In Session';
-    return (sSes.innerHTML-1) + ':59';
-  }
-
-};
 
 const run = ()=>{
   bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = true;
 
   const intervalID = setInterval(()=>{
-    if(h2Type.innerHTML === 'In Session'){
-      pTimer.innerHTML = 
-        setSecs('break', 
-          pTimer.innerHTML.split(':')[0],
-          pTimer.innerHTML.split(':')[1]);
+    if(pTimer.innerHTML === '0:00'){
+      beep.play();
+      bTimer.onclick = ()=>{
+        if(h2Type.innerHTML === 'In Session'){
+          h2Type.innerHTML = 'In Break';
+          pTimer.innerHTML = sBreak.innerHTML + ':00';
+        }
+
+        else{
+          h2Type.innerHTML = 'In Session';
+          pTimer.innerHTML = sSes.innerHTML + ':00';
+        }
+      };
     }
+
     else{
-      pTimer.innerHTML = 
-        setSecs('session',
-          pTimer.innerHTML.split(':')[0],
-          pTimer.innerHTML.split(':')[1]);
+      bTimer.onclick = ()=>{
+        clearInterval(intervalID);
+        bTimer.style.background = 'none';
+        bTimer.onclick = ()=>{
+          bTimer.style.background = 'yellow';
+          run();
+        };
+      };
+
+      if(h2Type.innerHTML === 'In Session'){
+        pTimer.innerHTML = 
+          setSecs(pTimer.innerHTML.split(':')[0],
+                  pTimer.innerHTML.split(':')[1]);}
+
+      else{
+        pTimer.innerHTML = 
+          setSecs(pTimer.innerHTML.split(':')[0],
+                  pTimer.innerHTML.split(':')[1]);}
     }
-
-    bTimer.onclick = ()=>{
-      clearInterval(intervalID);
-      reset();
-      h2Type.innerHTML = 'In Session';
-
-//have to set it again cuz it won't go to the bottom bTimer.onclick function :D
-      bTimer.onclick = ()=>{run();};
-    };
   }, 1000);
 };
-
-const reset = ()=>{
-  bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = false;
-  pTimer.innerHTML = sSes.innerHTML + ':00';
-};
-
-//
-//--end of functions for timer
 
 
 
@@ -105,4 +96,8 @@ bPlus.onclick = ()=>{minOrPlus('plus', sBreak);};
 sPlus.onclick = ()=>{minOrPlus('plus', sSes);};
 
 //Timer
-bTimer.onclick = ()=>{run();};
+bTimer.onclick = ()=>{
+  h2Type.innerHTML = 'In Session';
+  bTimer.style.background = 'yellow';
+  run();
+};
