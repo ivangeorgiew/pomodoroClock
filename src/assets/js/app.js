@@ -17,7 +17,10 @@ const minOrPlus = (op, n)=>{
   else if(op == 'plus' && n.innerHTML < 60)
     n.innerHTML = +n.innerHTML + 1; 
 
-  pTimer.innerHTML = sSes.innerHTML + ':00';
+  if(n === sSes && h2Type.innerHTML === 'In Session')
+    pTimer.innerHTML = sSes.innerHTML + ':00';
+  else if(n === sBreak && h2Type.innerHTML === 'In Break')
+    pTimer.innerHTML = sBreak.innerHTML + ':00';
 };
 
 
@@ -67,6 +70,7 @@ const run = ()=>{
     else{
       bTimer.onclick = ()=>{
         clearInterval(intervalID);
+        bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = false;
         bTimer.style.background = 'none';
         bTimer.onclick = ()=>{
           bTimer.style.background = 'yellow';
@@ -97,7 +101,6 @@ sPlus.onclick = ()=>{minOrPlus('plus', sSes);};
 
 //Timer
 bTimer.onclick = ()=>{
-  h2Type.innerHTML = 'In Session';
   bTimer.style.background = 'yellow';
   run();
 };
