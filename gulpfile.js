@@ -23,7 +23,7 @@ gulp.task('css', function (cb) {
   );
 });
 
-gulp.task('mp3', function(cb) {
+gulp.task('etc', function(cb) {
   pump([
       gulp.src('src/assets/beep.mp3'),
       gulp.dest('app/assets'),
@@ -54,16 +54,6 @@ gulp.task('html', function(cb){
   );
 });
 
-gulp.task('img', function(cb){
-  pump([
-      gulp.src('src/assets/img/**/*'),
-      gulp.dest('app/assets/img/'),
-      browserSync.reload({stream:true})
-    ],
-    cb
-  );
-});
-
 gulp.task('browser-sync', function() {
   browserSync.init(null, {
     server: {
@@ -76,11 +66,9 @@ gulp.task('bs-reload', function () {
     browserSync.reload();
 });
 
-gulp.task('default', ['css', 'mp3', 'jsConcat', 'html', 'img', 'browser-sync'], function () {
+gulp.task('default', ['css', 'etc', 'jsConcat', 'html', 'browser-sync'], function () {
     gulp.watch("src/assets/css/*.scss", ['css']);
-    gulp.watch("src/assets/beep.mp3", ['mp3']);
     gulp.watch("src/assets/js/app.js", ['jsConcat']);
     gulp.watch("src/*.html", ['html']);
-    gulp.watch("src/assets/img/**/*", ['img']);
     gulp.watch("app/*.html", ['bs-reload']);
 });

@@ -16,6 +16,8 @@ html, body{
   text-align: center;
   background-color: $aqua;
   color: $navy; 
+  margin: 0px;
+  padding: 0px;
 }
   
 select, input, button{
@@ -25,10 +27,18 @@ select, input, button{
 
 .h1--title{
   font-size: 45px;
+  background-color: yellow;
+  border-radius: 0px;
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.h2--settings{
+  color: $red;
 }
 
 .div--break, .div--session{
-  border: 2px solid $navy;
+  border: 3px solid white;
   padding: 10px;
   display: inline-block;
   margin: 50px 20px 0px 20px;
@@ -50,7 +60,32 @@ select, input, button{
 
 .b--min, .s--min{
   position: relative;
-  top: -12px;
+  top: -10px;
+}
+
+.div--etc{
+  border: 3px solid white;
+  display: table;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 10px;
+}
+
+.b--reset{
+  color: $navy;
+  background-color: $aqua;
+  font-size: 30px;
+  padding: 20px;
+  padding-left: 10px;
+  border-right: 3px solid white; 
+  border-radius: 0px;
+}
+
+.h2--type{
+  display: inline;
+  color: $red;
+  font-size: 30px;
+  margin-left: 10px;
 }
 
 .b--timer{
@@ -59,14 +94,13 @@ select, input, button{
   margin-left: 35px;
   border: 5px solid $red;
   display: inline-block;
-  padding: 50px;
   font-size: 30px;
   width: 250px;
   height: 250px;
   border-radius: 50%;
   color: $red;
   background: none;
-  transition: 1s;
+  transition: 0.6s;
 }
 
 .p--timer{
@@ -74,21 +108,35 @@ select, input, button{
   font-size: 40px;
 }
 
-.h2--type{
-  color: $red;
-  font-size: 30px;
-  margin-top: -20px;
-}
 
-@media (max-width: 360px){
+@media (max-width: 400px){
   .h1--title{
     font-size: 35px;
-    margin-bottom: -5px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    padding: 5px;
+  }
+  .div--break, .div--etc{
+    margin-top: 15px;
+    margin-bottom: -30px;
+  }
+  .div--etc{
+    width: 232px;
   }
   .h2--settings{
     font-size: 20px;
   }
-  .h2--type{
-    margin-bottom: 50px;
+  .h2--type, .b--reset{
+    font-size: 22px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
+  .b--timer{
+    border-radius: 0px;
+    padding: 15px 50px 15px 50px;
+    margin: 0 auto;
+    margin-top: 40px;;
+    width: auto;
+    height: auto;
   }
 }
