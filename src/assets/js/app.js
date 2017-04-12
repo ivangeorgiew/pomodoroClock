@@ -9,8 +9,8 @@ const bReset = document.querySelector('.b--reset');
 const pTimer = document.querySelector('.p--timer');
 const bTimer = document.querySelector('.b--timer');
 const beep = new Audio('assets/beep.mp3');
-let running = false;
 
+let isRunning = false;
 beep.volume = 1;
 
 
@@ -59,75 +59,71 @@ const setMins = (mins)=>{
 };
 
 
-const run = ()=>{
-  running = true;
+const run = () => {
+  if(isRunning)
+    return;
+
   bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = true;
+  bTimer.style.background = 'yellow';
+  isRunning = true;
 
-  const intervalID = setInterval(()=>{
-    const stop = ()=>{
-      clearInterval(intervalID);
-      bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = false;
-      bTimer.style.background = 'none';
-      running = false;
-      bTimer.onclick = ()=>{
-        if(!running){
-          bTimer.style.background = 'yellow';
-          run();
-        }
-      };
+  const stop = () => {
+    clearInterval(intervalID);
+
+    bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = false;
+    bTimer.style.background = 'none';
+    isRunning = false;
+
+    bTimer.onclick = () => {run();};
+  };
+
+  const change = () => {
+    beep.play();
+    isRunning = false;
+
+    bTimer.onclick = () => {
+      if(h2Type.innerHTML === 'In Session'){
+        h2Type.innerHTML = 'In Break';
+        pTimer.innerHTML = sBreak.innerHTML + ':00';
+      }
+
+      else{
+        h2Type.innerHTML = 'In Session';
+        pTimer.innerHTML = sSes.innerHTML + ':00';
+      }
     };
+  };
 
-    //Reset button
-    bReset.onclick = ()=>{
-      stop();
-      pTimer.innerHTML = sSes.innerHTML + ':00';
-    };
+  //Reset button
+  bReset.onclick = () => {
+    stop();
+    pTimer.innerHTML = sSes.innerHTML + ':00';
+    h2Type.innerHTML = 'In Session';
+  };
 
-    //Changing between Session and Break
-    if(pTimer.innerHTML === '0:00'){
-      beep.play();
-      bTimer.onclick = ()=>{
-        running = false;
-
-        if(h2Type.innerHTML === 'In Session'){
-          h2Type.innerHTML = 'In Break';
-          pTimer.innerHTML = sBreak.innerHTML + ':00';
-        }
-
-        else{
-          h2Type.innerHTML = 'In Session';
-          pTimer.innerHTML = sSes.innerHTML + ':00';
-        }
-      };
-    }
-
-    else{
-      //Stopping
-      bTimer.onclick = ()=>{
-        stop();
-        running = false;
-      };
-
-      //Running
+  const intervalID = setInterval(() => {
+    //Running and Stopping
+    if(pTimer.innerHTML !== '0:00'){
       pTimer.innerHTML = 
         setSecs(pTimer.innerHTML.split(':')[0],
                 pTimer.innerHTML.split(':')[1]);
+
+      bTimer.onclick = () => { stop(); };
     }
+    
+    //Changing between Session and Break
+    else change();
+
   }, 1000);
 };
 
 
 
 //Settings
-bMin.onclick = ()=>{minOrPlus('min', sBreak);};
-sMin.onclick = ()=>{minOrPlus('min', sSes);};
-bPlus.onclick = ()=>{minOrPlus('plus', sBreak);};
-sPlus.onclick = ()=>{minOrPlus('plus', sSes);};
+bMin.onclick = () => { minOrPlus('min', sBreak); };
+sMin.onclick = () => { minOrPlus('min', sSes); };
+bPlus.onclick = () => { minOrPlus('plus', sBreak); };
+sPlus.onclick = () => { minOrPlus('plus', sSes); };
 
 //Timer
-bTimer.onclick = ()=>{
-  if(!running){
-    bTimer.style.background = 'yellow';
-    run();
-  }
-};
+bTimer.onclick = () => { run(); };

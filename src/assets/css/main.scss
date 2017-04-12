@@ -27,7 +27,7 @@ select, input, button{
 
 .h1--title{
   font-size: 45px;
-  background-color: yellow;
+  background-color: #00A693;
   border-radius: 0px;
   margin-top: 0px;
   padding: 15px;
@@ -99,7 +99,7 @@ select, input, button{
   border-radius: 50%;
   color: $red;
   background: none;
-  transition: 0.6s;
+  transition: 0.8s;
 }
 
 .p--timer{
