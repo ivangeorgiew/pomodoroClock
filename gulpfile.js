@@ -35,7 +35,7 @@ gulp.task('etc', function(cb) {
 
 gulp.task('jsConcat', function(cb){
   pump([
-      gulp.src('src/assets/js/app.js'),
+      gulp.src(['node_modules/hacktimer/HackTimer.min.js', 'src/assets/js/app.js']),
       concat('app.min.js'),
       gulp.dest('app/assets/js'),
       browserSync.reload({stream:true})
