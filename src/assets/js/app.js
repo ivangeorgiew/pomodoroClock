@@ -1,3 +1,4 @@
+/* CONSTANTS */
 const bMin = document.querySelector('.b--min');
 const sMin = document.querySelector('.s--min');
 const bPlus = document.querySelector('.b--plus');
@@ -10,10 +11,9 @@ const pTimer = document.querySelector('.p--timer');
 const bTimer = document.querySelector('.b--timer');
 const beep = new Audio('assets/beep.mp3');
 
-let isRunning = false;
-beep.volume = 1;
 
 
+/* FUNCTION FOR SETTINGS */
 const minOrPlus = (op, n)=>{
   if(op === 'min' && n.innerHTML > 1){
     if(n === sSes)
@@ -28,14 +28,15 @@ const minOrPlus = (op, n)=>{
       n.innerHTML = +n.innerHTML + 1;
   }
 
-  if(n === sSes && h2Type.innerHTML === 'In Session')
+  if(n === sSes && h2Type.innerHTML === 'Session')
     pTimer.innerHTML = sSes.innerHTML + ':00';
-  else if(n === sBreak && h2Type.innerHTML === 'In Break')
+  else if(n === sBreak && h2Type.innerHTML === 'Break')
     pTimer.innerHTML = sBreak.innerHTML + ':00';
 };
 
 
-//FUNCTIONS FOR TIMER
+
+/* FUNCTIONS FOR COUNTING */
 const setSecs = (mins, secs)=>{
   if(secs > 10)
     return mins + ':' + (secs-1);
@@ -59,47 +60,38 @@ const setMins = (mins)=>{
 };
 
 
+
+/* FUNCTIONS FOR TIMER */
+const stop = (intervalID) => {
+  clearInterval(intervalID);
+
+  bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = false;
+  bTimer.style.background = 'none';
+
+  bTimer.onclick = () => {run();};
+};
+
+const change = () => {
+  beep.play();
+
+  bTimer.onclick = () => {
+    if(h2Type.innerHTML === 'Session') {
+      h2Type.innerHTML = 'Break';
+      pTimer.innerHTML = sBreak.innerHTML + ':00';
+    } else {
+      h2Type.innerHTML = 'Session';
+      pTimer.innerHTML = sSes.innerHTML + ':00';
+    }
+  };
+};
+
 const run = () => {
-  if(isRunning)
+  //Stop from clicking too fast
+  if(bTimer.style.background === 'yellow')
     return;
 
   bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = true;
   bTimer.style.background = 'yellow';
-  isRunning = true;
-
-  const stop = () => {
-    clearInterval(intervalID);
-
-    bMin.disabled = sMin.disabled = bPlus.disabled = sPlus.disabled = false;
-    bTimer.style.background = 'none';
-    isRunning = false;
-
-    bTimer.onclick = () => {run();};
-  };
-
-  const change = () => {
-    beep.play();
-    isRunning = false;
-
-    bTimer.onclick = () => {
-      if(h2Type.innerHTML === 'In Session'){
-        h2Type.innerHTML = 'In Break';
-        pTimer.innerHTML = sBreak.innerHTML + ':00';
-      }
-
-      else{
-        h2Type.innerHTML = 'In Session';
-        pTimer.innerHTML = sSes.innerHTML + ':00';
-      }
-    };
-  };
-
-  //Reset button
-  bReset.onclick = () => {
-    stop();
-    pTimer.innerHTML = sSes.innerHTML + ':00';
-    h2Type.innerHTML = 'In Session';
-  };
 
   const intervalID = setInterval(() => {
     //Running and Stopping
@@ -108,22 +100,36 @@ const run = () => {
         setSecs(pTimer.innerHTML.split(':')[0],
                 pTimer.innerHTML.split(':')[1]);
 
-      bTimer.onclick = () => { stop(); };
+      bTimer.onclick = () => { stop(intervalID); };
     }
     
     //Changing between Session and Break
     else change();
 
   }, 1000);
+  
+  //Reset button
+  bReset.onclick = () => {
+    stop(intervalID);
+    pTimer.innerHTML = sSes.innerHTML + ':00';
+    h2Type.innerHTML = 'Session';
+  };
 };
 
 
 
-//Settings
+/* VOLUME */
+beep.volume = 1;
+
+
+
+/* SETTINGS */
 bMin.onclick = () => { minOrPlus('min', sBreak); };
 sMin.onclick = () => { minOrPlus('min', sSes); };
 bPlus.onclick = () => { minOrPlus('plus', sBreak); };
 sPlus.onclick = () => { minOrPlus('plus', sSes); };
 
-//Timer
+
+
+/* TIMER */
 bTimer.onclick = () => { run(); };

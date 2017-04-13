@@ -1,8 +1,9 @@
 @import 'node_modules/node-normalize-scss/_normalize.scss';
 @import 'https://fonts.googleapis.com/css?family=Open+Sans';
-$aqua: #7FDBFF;
+$olive: #7FDBFF;
 $navy: #001f3f;
 $red: #FF4136; 
+$aqua: #AAFFFF;
 
 *{
   border-radius: 5px;
@@ -27,7 +28,7 @@ select, input, button{
 
 .h1--title{
   font-size: 45px;
-  background-color: #00A693;
+  background-color: $olive;
   border-radius: 0px;
   margin-top: 0px;
   padding: 15px;
@@ -38,7 +39,7 @@ select, input, button{
 }
 
 .div--break, .div--session{
-  border: 3px solid white;
+  border: 3px solid darken($olive, 30%);
   padding: 10px;
   display: inline-block;
   margin: 50px 20px 0px 20px;
@@ -64,7 +65,7 @@ select, input, button{
 }
 
 .div--etc{
-  border: 3px solid white;
+  border: 3px solid darken($olive, 30%);
   display: table;
   margin: 0 auto;
   margin-top: 50px;
@@ -75,9 +76,9 @@ select, input, button{
   color: $navy;
   background-color: $aqua;
   font-size: 30px;
-  padding: 20px;
+  padding: 15px;
   padding-left: 10px;
-  border-right: 3px solid white; 
+  border-right: 3px solid darken($olive, 30%); 
   border-radius: 0px;
 }
 
@@ -99,7 +100,7 @@ select, input, button{
   border-radius: 50%;
   color: $red;
   background: none;
-  transition: 0.8s;
+  transition: 0.7s;
 }
 
 .p--timer{
@@ -117,9 +118,6 @@ select, input, button{
   .div--break, .div--etc{
     margin-top: 15px;
     margin-bottom: -30px;
-  }
-  .div--etc{
-    width: 232px;
   }
   .h2--settings{
     font-size: 20px;

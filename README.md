@@ -19,6 +19,8 @@ In case you want to install:
 
 2) `git clone https://github.com/ivangeorgiew/pomodoroClock.git`
 
-3) `npm i`
+3) `npm install hacktimer --reg https://www.myget.org/F/hack-timer/npm`
 
-4) `gulp`
+4) `npm i`
+
+5) `gulp`
