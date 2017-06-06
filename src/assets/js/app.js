@@ -85,20 +85,21 @@ const change = () => {
   beep.play();
 
   //add notification
-  if(window.myNoti === undefined)
+  if(!window.myNoti)
     window.myNoti= new Notification('Timer Ended');
 
   bTimer.onclick = () => {
     //remove notification
-    setTimeout(myNoti.close.bind(myNoti), 500);
-    window.myNoti = undefined;
-
-
+    if(myNoti) {
+      setTimeout(myNoti.close.bind(myNoti), 500);
+      window.myNoti = undefined;
+    }
 
     if(h2Type.innerHTML === 'Session') {
       h2Type.innerHTML = 'Break';
       pTimer.innerHTML = sBreak.innerHTML + ':00';
-    } else {
+    }
+    else {
       h2Type.innerHTML = 'Session';
       pTimer.innerHTML = sSes.innerHTML + ':00';
     }
@@ -134,8 +135,10 @@ const run = () => {
     h2Type.innerHTML = 'Session';
 
     //remove notification
-    setTimeout(myNoti.close.bind(myNoti), 500);
-    window.myNoti = undefined;
+    if(myNoti) {
+      setTimeout(myNoti.close.bind(myNoti), 500);
+      window.myNoti = undefined;
+    }
   };
 };
 
