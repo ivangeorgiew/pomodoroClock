@@ -13,6 +13,7 @@ const beep = new Audio('assets/beep.mp3');
 
 
 
+
 /* FUNCTION FOR SETTINGS */
 const minOrPlus = (op, n)=>{
   if(op === 'min' && n.innerHTML > 1){
@@ -36,14 +37,13 @@ const minOrPlus = (op, n)=>{
 
 
 
+
 /* FUNCTIONS FOR COUNTING */
 const setSecs = (mins, secs)=>{
   if(secs > 10)
     return mins + ':' + (secs-1);
-
   else if(secs > 0)
     return mins + ':0' + (secs-1);
-
   else
     return setMins(mins);
 };
@@ -51,13 +51,12 @@ const setSecs = (mins, secs)=>{
 const setMins = (mins)=>{
   if(mins > 10)
     return (mins-1) + ':59';
-  
   else if(mins > 0)
     return (mins-1) + ':59';
-  
   else
     return '0:00';
 };
+
 
 
 
@@ -74,7 +73,14 @@ const stop = (intervalID) => {
 const change = () => {
   beep.play();
 
+  //add notification
+  if(!window.myNotification)
+    window.myNotification = new Notification('Timer Ended');
+
   bTimer.onclick = () => {
+    //remove notification
+    setTimeout(Notification.prototype.close.bind(myNotification), 500);
+
     if(h2Type.innerHTML === 'Session') {
       h2Type.innerHTML = 'Break';
       pTimer.innerHTML = sBreak.innerHTML + ':00';
@@ -105,7 +111,6 @@ const run = () => {
     
     //Changing between Session and Break
     else change();
-
   }, 1000);
   
   //Reset button
@@ -115,6 +120,8 @@ const run = () => {
     h2Type.innerHTML = 'Session';
   };
 };
+
+
 
 
 
