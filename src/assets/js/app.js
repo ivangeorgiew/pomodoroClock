@@ -14,9 +14,20 @@ const beep = new Audio('assets/beep.mp3');
 
 
 
+/* Allow Notification */
+if(Notification.permission !== 'granted') {
+  Notification.requestPermission().then(perm => {
+    if(perm === 'granted')
+      console.log('Notifications will show');
+  });
+}
+
+
+
+
 /* FUNCTION FOR SETTINGS */
 const minOrPlus = (op, n)=>{
-  if(op === 'min' && n.innerHTML > 1){
+  if(op === 'min' && n.innerHTML > 0){
     if(n === sSes)
       n.innerHTML -= 5; 
     else
@@ -74,12 +85,15 @@ const change = () => {
   beep.play();
 
   //add notification
-  if(!window.myNotification)
-    window.myNotification = new Notification('Timer Ended');
+  if(window.myNoti === undefined)
+    window.myNoti= new Notification('Timer Ended');
 
   bTimer.onclick = () => {
     //remove notification
-    setTimeout(Notification.prototype.close.bind(myNotification), 500);
+    setTimeout(myNoti.close.bind(myNoti), 500);
+    window.myNoti = undefined;
+
+
 
     if(h2Type.innerHTML === 'Session') {
       h2Type.innerHTML = 'Break';
@@ -118,6 +132,10 @@ const run = () => {
     stop(intervalID);
     pTimer.innerHTML = sSes.innerHTML + ':00';
     h2Type.innerHTML = 'Session';
+
+    //remove notification
+    setTimeout(myNoti.close.bind(myNoti), 500);
+    window.myNoti = undefined;
   };
 };
 
@@ -130,11 +148,13 @@ beep.volume = 1;
 
 
 
+
 /* SETTINGS */
 bMin.onclick = () => { minOrPlus('min', sBreak); };
 sMin.onclick = () => { minOrPlus('min', sSes); };
 bPlus.onclick = () => { minOrPlus('plus', sBreak); };
 sPlus.onclick = () => { minOrPlus('plus', sSes); };
+
 
 
 
