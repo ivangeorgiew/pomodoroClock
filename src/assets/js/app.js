@@ -86,7 +86,7 @@ const change = () => {
 
   //add notification
   if(!window.myNoti)
-    window.myNoti= new Notification('Timer Ended');
+    window.myNoti= new Notification('Timer Ended', { requireInteraction: true });
 
   bTimer.onclick = () => {
     //remove notification
