@@ -10,6 +10,7 @@ const bReset = document.querySelector('.b--reset');
 const pTimer = document.querySelector('.p--timer');
 const bTimer = document.querySelector('.b--timer');
 const beep = new Audio('assets/beep.mp3');
+let myNoti
 
 
 
@@ -85,14 +86,14 @@ const change = () => {
   beep.play();
 
   //add notification
-  if(!window.myNoti)
-    window.myNoti= new Notification('Timer Ended', { requireInteraction: true });
+  if(!myNoti)
+    myNoti= new Notification('Timer Ended', { requireInteraction: true });
 
   bTimer.onclick = () => {
     //remove notification
     if(myNoti) {
       setTimeout(myNoti.close.bind(myNoti), 500);
-      window.myNoti = undefined;
+      myNoti = undefined;
     }
 
     if(h2Type.innerHTML === 'Session') {
@@ -137,7 +138,7 @@ const run = () => {
     //remove notification
     if(myNoti) {
       setTimeout(myNoti.close.bind(myNoti), 500);
-      window.myNoti = undefined;
+      myNoti = undefined;
     }
   };
 };
