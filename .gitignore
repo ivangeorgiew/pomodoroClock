@@ -2,6 +2,7 @@
 app
 src/assets/css/_normalize.scss
 src/assets/js/jquery.min.js
+package-lock.json
 
 ### OSX ###
 *.DS_Store
