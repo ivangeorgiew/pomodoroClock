@@ -86,8 +86,21 @@ const change = () => {
   beep.play();
 
   //add notification
-  if(!myNoti)
+  if(!myNoti) {
     myNoti= new Notification('Timer Ended', { requireInteraction: true });
+    myNoti.onclose = function() {
+      myNoti = undefined
+
+      if(h2Type.innerHTML === 'Session') {
+        h2Type.innerHTML = 'Break';
+        pTimer.innerHTML = sBreak.innerHTML + ':00';
+      }
+      else {
+        h2Type.innerHTML = 'Session';
+        pTimer.innerHTML = sSes.innerHTML + ':00';
+      }
+    }
+  }
 
   bTimer.onclick = () => {
     //remove notification
@@ -124,11 +137,11 @@ const run = () => {
 
       bTimer.onclick = () => { stop(intervalID); };
     }
-    
+
     //Changing between Session and Break
     else change();
   }, 1000);
-  
+
   //Reset button
   bReset.onclick = () => {
     stop(intervalID);
