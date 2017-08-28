@@ -88,7 +88,8 @@ const change = () => {
   //add notification
   if(!myNoti) {
     myNoti= new Notification('Timer Ended', { requireInteraction: true });
-    myNoti.onclose = function() {
+    myNoti.onclick = function() {
+      setTimeout(myNoti.close.bind(myNoti), 500);
       myNoti = undefined
 
       if(h2Type.innerHTML === 'Session') {
