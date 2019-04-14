@@ -87,7 +87,7 @@ const change = () => {
 
   //add notification
   if(!myNoti) {
-    myNoti= new Notification('Timer Ended', { requireInteraction: true });
+    myNoti= new Notification('Timer Ended', { requireInteraction: false });
     myNoti.onclick = function() {
       setTimeout(myNoti.close.bind(myNoti), 500);
       myNoti = undefined
@@ -178,3 +178,5 @@ sPlus.onclick = () => { minOrPlus('plus', sSes); };
 
 /* TIMER */
 bTimer.onclick = () => { run(); };
+
+window.addEventListener('DOMContentLoaded', () => { bTimer.click() }, false)
