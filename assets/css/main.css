@@ -395,10 +395,7 @@ select, input, button {
   margin-top: 0px;
   padding: 15px; }
 
-.h2--settings {
-  color: #FF4136; }
-
-.div--break, .div--session {
+.div--session {
   border: 3px solid #00a5e5;
   padding: 10px;
   display: inline-block;
@@ -419,16 +416,9 @@ select, input, button {
   margin-left: 10px;
   font-size: 30px; }
 
-.b--min, .s--min {
+.s--min {
   position: relative;
-  top: -10px; }
-
-.div--etc {
-  border: 3px solid #00a5e5;
-  display: table;
-  margin: 0 auto;
-  margin-top: 50px;
-  padding: 10px; }
+  top: -14px; }
 
 .b--reset {
   color: #001f3f;
@@ -436,14 +426,7 @@ select, input, button {
   font-size: 30px;
   padding: 15px;
   padding-left: 10px;
-  border-right: 3px solid #00a5e5;
   border-radius: 0px; }
-
-.h2--type {
-  display: inline;
-  color: #FF4136;
-  font-size: 30px;
-  margin-left: 10px; }
 
 .b--timer {
   text-align: center;
@@ -467,12 +450,7 @@ select, input, button {
     font-size: 35px;
     margin-bottom: 0px;
     padding: 5px; }
-  .div--break, .div--etc {
-    margin-top: 15px;
-    margin-bottom: -30px; }
-  .h2--settings {
-    font-size: 20px; }
-  .h2--type, .b--reset {
+  .b--reset {
     font-size: 22px;
     padding-top: 10px;
     padding-bottom: 5px; }
