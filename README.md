@@ -1,6 +1,6 @@
 # pomodoroClock
 
-An app for studying where work and break are time scheduled.
+An app for studying where work and break are time scheduled .
 
 View the app live at https://ivangeorgiew.github.io/pomodoroClock/
 
